@@ -1,4 +1,3 @@
-rootProject.name='angular-spring-boot'
+rootProject.name='thymeleaf-spring-boot'
 
 include 'backend'
-include 'frontend'

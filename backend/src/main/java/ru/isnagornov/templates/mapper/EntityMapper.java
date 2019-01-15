@@ -13,7 +13,7 @@ import java.util.List;
 public interface EntityMapper extends CommonMapper<Entity> {
 
     @Override
-    @Insert("INSERT into entity(id, name) VALUES(#{id}, #{name})")
+    @Insert("INSERT into entity(name) VALUES(#{name})")
     void add(Entity entity);
 
     @Override

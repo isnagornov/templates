@@ -1,49 +1,68 @@
 package ru.isnagornov.templates.rest;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.isnagornov.templates.entity.Entity;
-import ru.isnagornov.templates.service.AbstractService;
+import ru.isnagornov.templates.form.EntityForm;
+import ru.isnagornov.templates.service.EntityService;
 
-import java.util.List;
+@Controller
+public class EntityCrudRestController {
 
-@RestController
-@RequestMapping(path = "entity")
-public class EntityCrudRestController extends AbstractController<Entity> {
+    @Autowired
+    private EntityService entityService;
 
-    public EntityCrudRestController(AbstractService<Entity> service) {
-        super(service);
+    @Value("${error.message}")
+    private String errorMessage;
+
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String index(Model model) {
+        return "index";
     }
 
-    @Override
-    @PostMapping("/add")
-    public ResponseEntity<HttpStatus> add(@RequestBody Entity entity) {
-        return super.add(entity);
+    @RequestMapping(value = {"/entityList"}, method = RequestMethod.GET)
+    public String personList(Model model) {
+
+        model.addAttribute("entities", entityService.getAll());
+
+        return "entityList";
     }
 
-    @Override
-    @GetMapping("/getAll")
-    public List<Entity> getAll() {
-        return super.getAll();
+    @RequestMapping(value = {"/addEntity"}, method = RequestMethod.GET)
+    public String showAddPage(Model model) {
+
+        EntityForm entityForm = new EntityForm();
+
+        model.addAttribute("entityForm", entityForm);
+
+        return "addEntity";
     }
 
-    @Override
-    @GetMapping(path = "/{id}")
-    public Entity getById(@PathVariable("id") Long id) {
-        return super.getById(id);
-    }
+    @RequestMapping(value = {"/addEntity"}, method = RequestMethod.POST)
+    public String savePerson(Model model, @ModelAttribute("entityForm") EntityForm entityForm) {
 
-    @Override
-    @PutMapping(path = "/update")
-    public ResponseEntity<HttpStatus> update(@RequestBody Entity entity) {
-        return super.update(entity);
-    }
+        Long id = entityForm.getId();
+        String name = entityForm.getName();
 
-    @Override
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
-        return super.delete(id);
+        if (!StringUtils.isEmpty(name)) {
+            Entity entity = new Entity(id, name);
+
+            entityService.add(entity);
+
+            return "redirect:/entityList";
+        }
+
+        model.addAttribute("errorMessage", errorMessage);
+
+        return "addEntity";
     }
 
 }

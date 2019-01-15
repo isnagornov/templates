@@ -1,16 +1,14 @@
 package ru.isnagornov.templates.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
 public class Entity {
 
-    private Long id;
-    private String name;
-
+    protected Long id;
+    protected String name;
 }

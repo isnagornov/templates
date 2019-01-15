@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Entity</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+    <h1>Create an Entity:</h1>
+
+    <form th:action="@{/addEntity}"
+          th:object="${entityForm}" method="POST">
+        Name:
+        <input type="text" th:field="*{name}"/>
+        <br/>
+        <input style="margin-top: 20px;" type="submit" class="btn btn-primary" value="Create"/>
+    </form>
+
+    <br/>
+
+    <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color:red;font-style:italic;">
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
