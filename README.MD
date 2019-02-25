@@ -3,7 +3,7 @@
 Stack:
 * Thymeleaf
 * Spring Boot
-* MyBatis
+* Spring Data JPA
 * Liquibase
 * Gradle
 
