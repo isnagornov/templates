@@ -10,27 +10,41 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <h1>Entity List</h1>
-    <a th:href="@{/addEntity}">Add new entity</a>
-    <br/><br/>
+    <form th:action="@{/addEntity}" th:method="get">
+        <input type="hidden" name="_method" value="get"/>
+        <button class="btn btn-success" type="submit" id="submitButton" style="margin-bottom: 10px">Add new entity
+        </button>
+    </form>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="entity : ${entities}">
-            <td th:utext="${entity.id}">...</td>
-            <td th:utext="${entity.name}">...</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-success">
+        <div class="panel-heading">Entity List</div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entity : ${entities}">
+                    <td th:utext="${entity.id}">...</td>
+                    <td th:utext="${entity.name}">...</td>
+                    <td>
+                        <form th:action="@{'/deleteEntity/{id}'(id=${entity.id})}" th:method="delete">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button class="btn btn-danger" type="submit" id="deleteButton" style="padding: 5px;">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
-
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>

@@ -1,13 +1,13 @@
 package ru.isnagornov.templates.service;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ru.isnagornov.templates.entity.Entity;
-import ru.isnagornov.templates.mapper.CommonMapper;
 
 @Service
-public class EntityService extends AbstractService<Entity> {
+public class EntityService extends AbstractService<Long, Entity> {
 
-    public EntityService(CommonMapper<Entity> mapper) {
-        super(mapper);
+    public EntityService(JpaRepository<Entity, Long> repository) {
+        super(repository);
     }
 }

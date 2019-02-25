@@ -1,34 +1,35 @@
 package ru.isnagornov.templates.service;
 
-import ru.isnagornov.templates.mapper.CommonMapper;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.isnagornov.templates.entity.AbstractEntity;
 
 import java.util.List;
 
-public abstract class AbstractService<T> {
+public abstract class AbstractService<T, E extends AbstractEntity<T>> {
 
-    protected CommonMapper<T> mapper;
+    protected JpaRepository<E, T> repository;
 
-    public AbstractService(CommonMapper<T> mapper) {
-        this.mapper = mapper;
+    public AbstractService(JpaRepository<E, T> repository) {
+        this.repository = repository;
     }
 
-    public void add(T entity) {
-        this.mapper.add(entity);
+    public void add(E entity) {
+        this.repository.save(entity);
     }
 
-    public T getById(Long id) {
-        return this.mapper.getById(id);
+    public E getById(T id) {
+        return this.repository.findById(id).orElse(null);
     }
 
-    public List<T> getAll() {
-        return this.mapper.getAll();
+    public List<E> getAll() {
+        return this.repository.findAll();
     }
 
-    public void update(T entity) {
-        this.mapper.update(entity);
+    public void update(E entity) {
+        this.repository.save(entity);
     }
 
-    public void delete(Long id) {
-        this.mapper.delete(id);
+    public void delete(T id) {
+        this.repository.deleteById(id);
     }
 }

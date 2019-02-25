@@ -10,24 +10,20 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <h1>Create an Entity:</h1>
+    <h3>Create an Entity:</h3>
 
-    <form th:action="@{/addEntity}"
-          th:object="${entityForm}" method="POST">
-        Name:
-        <input type="text" th:field="*{name}"/>
-        <br/>
-        <input style="margin-top: 20px;" type="submit" class="btn btn-primary" value="Create"/>
+    <form class="form-inline" th:action="@{/addEntity}" th:object="${entityDto}" method="POST">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" type="text" th:field="*{name}"/>
+        </div>
+        <button type="submit" class="btn btn-success">Create</button>
     </form>
-
     <br/>
-
     <div th:if="${errorMessage}" th:utext="${errorMessage}"
          style="color:red;font-style:italic;">
     </div>
 </div>
-
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>

@@ -10,20 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.isnagornov.templates.Application;
 import ru.isnagornov.templates.entity.Entity;
-import ru.isnagornov.templates.mapper.EntityMapper;
+import ru.isnagornov.templates.service.EntityService;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class EntityMapperTest {
+public class EntityServiceTest {
+
+    private static final Long ID = 1L;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -33,68 +35,60 @@ public class EntityMapperTest {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private EntityMapper entityMapper;
+    private EntityService service;
 
     @Test
     public void test1Insert() {
-        final Long id = 1L;
-        Entity entity = new Entity(id, "TestEntity");
+        Entity entity = new Entity("TestEntity");
 
-        entityMapper.add(entity);
+        service.add(entity);
+        assertNotNull(entity.getId());
 
         logger.info("{} added to repository", entity);
-
-        Entity foundEntity = getEntityByIdUsingJdbcTemplate(id);
-
-        assertEquals(entity, foundEntity);
     }
 
     @Test
     public void test2Get() {
-        final Long id = 1L;
-        Entity foundEntity = getEntityByIdUsingJdbcTemplate(id);
+        Entity foundEntity = getEntityByIdUsingJdbcTemplate(ID);
 
         assertNotNull(foundEntity);
 
-        Entity entity = entityMapper.getById(id);
+        Entity entity = service.getById(ID);
 
-        logger.info("{} was gotten from repository by id={}", entity, id);
+        logger.info("{} was gotten from repository by ID={}", entity, ID);
 
         assertEquals(entity, foundEntity);
     }
 
     @Test
     public void test4Update() {
-        Entity foundEntity = getEntityByIdUsingJdbcTemplate(1L);
+        Entity preUpdatedEntity = getEntityByIdUsingJdbcTemplate(ID);
 
-        Entity entity = new Entity(1L, "TestEntity1");
+        preUpdatedEntity.setName("updated!!!");
 
-        assertNotEquals(foundEntity, entity);
+        service.update(preUpdatedEntity);
 
-        entityMapper.update(entity);
+        Entity updatedEntity = getEntityByIdUsingJdbcTemplate(ID);
 
-        foundEntity = getEntityByIdUsingJdbcTemplate(1L);
+        assertEquals(preUpdatedEntity, updatedEntity);
 
-        assertEquals(foundEntity, entity);
-
-        logger.info("Entity was updated in repository, new value - {}", entity);
+        logger.info("Entity was updated in repository, new value - {}", updatedEntity);
     }
 
     @Test
     public void test5Delete() {
-        Long id = 1L;
 
-        Entity foundEntity = getEntityByIdUsingJdbcTemplate(id);
+        Entity foundEntity = getEntityByIdUsingJdbcTemplate(ID);
 
         assertNotNull(foundEntity);
 
-        entityMapper.delete(id);
+        service.delete(ID);
 
-        List<Entity> foundList = jdbcTemplate.query("SELECT * FROM entity WHERE id=?", new Object[]{id},
+        List<Entity> foundList = jdbcTemplate.query("SELECT * FROM entity WHERE id=?", new Object[]{ID},
                 rowMapper);
         assertEquals(0, foundList.size());
 
-        logger.info("Entity with id={} was deleted from repository", id);
+        logger.info("Entity with ID={} was deleted from repository", ID);
     }
 
     private Entity getEntityByIdUsingJdbcTemplate(Long id) {

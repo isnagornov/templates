@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Welcome</title>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -10,13 +10,14 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <h1>Welcome</h1>
+    <h3>Home Page</h3>
 
-    <a th:href="@{/entityList}">Entity List</a>
+    <ul>
+        <li class="active"><a th:href="@{/entityList}">Entity List</a></li>
+        <li><a th:href="@{/addEntity}">Create new Entity</a></li>
+    </ul>
 
 </div>
-
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 
