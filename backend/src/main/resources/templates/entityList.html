@@ -12,7 +12,7 @@
 <div class="container">
     <form th:action="@{/addEntity}" th:method="get">
         <input type="hidden" name="_method" value="get"/>
-        <button class="btn btn-success" type="submit" id="submitButton" style="margin-bottom: 10px">Add new entity
+        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new entity
         </button>
     </form>
 
@@ -29,12 +29,18 @@
                 </thead>
                 <tbody>
                 <tr th:each="entity : ${entities}">
-                    <td th:utext="${entity.id}">...</td>
-                    <td th:utext="${entity.name}">...</td>
+                    <td th:utext="${entity.id}"></td>
+                    <td th:utext="${entity.name}"></td>
+                    <td>
+                        <a th:href="@{'/updateEntity/{id}'(id=${entity.id})}" class="btn btn-warning def-btn-padding"
+                           id="updateButton">
+                            Update
+                        </a>
+                    </td>
                     <td>
                         <form th:action="@{'/deleteEntity/{id}'(id=${entity.id})}" th:method="delete">
                             <input type="hidden" name="_method" value="delete"/>
-                            <button class="btn btn-danger" type="submit" id="deleteButton" style="padding: 5px;">Delete
+                            <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">Delete
                             </button>
                         </form>
                     </td>

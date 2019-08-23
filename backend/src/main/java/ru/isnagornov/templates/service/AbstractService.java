@@ -1,11 +1,10 @@
 package ru.isnagornov.templates.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.isnagornov.templates.entity.AbstractEntity;
 
 import java.util.List;
 
-public abstract class AbstractService<T, E extends AbstractEntity<T>> {
+public abstract class AbstractService<T, E> {
 
     protected JpaRepository<E, T> repository;
 

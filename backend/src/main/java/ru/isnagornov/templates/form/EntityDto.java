@@ -1,22 +1,27 @@
 package ru.isnagornov.templates.form;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import ru.isnagornov.templates.entity.AbstractEntity;
+public class EntityDto {
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class EntityDto extends AbstractEntity<Long> {
+    private Long id;
 
-    protected String name;
+    private String name;
 
-    public EntityDto(Long id, String name) {
-        super(id);
+    public EntityDto() {
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

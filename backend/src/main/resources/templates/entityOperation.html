@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Entity</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+    <div th:switch="${operation}">
+        <div th:case="create">
+            <h3>Create an Entity:</h3>
+
+            <form class="form-inline" th:action="@{/addEntity}" th:object="${entityDto}" method="POST">
+                <div class="form-group">
+                    <label for="createFormName">Name:</label>
+                    <input id="createFormName" type="text" th:field="*{name}"/>
+                </div>
+                <button type="submit" class="btn btn-success">Create</button>
+            </form>
+        </div>
+        <div th:case="update">
+            <h3>Update an Entity:</h3>
+
+            <form class="form-inline" th:action="@{'/updateEntity/{id}'(id=${entityDto.id})}"
+                  th:object="${entityDto}" method="POST">
+                <div class="form-group">
+                    <label for="updateFormName">Name:</label>
+                    <input id="updateFormName" type="text" th:field="*{name}"/>
+                </div>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+
+    </div>
+    <br/>
+    <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         class="error-message">
+    </div>
+</div>
+
+</body>
+</html>

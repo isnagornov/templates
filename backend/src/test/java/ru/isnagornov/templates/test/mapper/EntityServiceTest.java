@@ -39,7 +39,8 @@ public class EntityServiceTest {
 
     @Test
     public void test1Insert() {
-        Entity entity = new Entity("TestEntity");
+        Entity entity = new Entity();
+        entity.setName("TestEntity");
 
         service.add(entity);
         assertNotNull(entity.getId());

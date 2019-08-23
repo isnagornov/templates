@@ -1,15 +1,32 @@
 h1 {
-    color:#0000FF;
+    color: #0000FF;
 }
 
 h2 {
-    color:#FF0000;
+    color: #FF0000;
 }
 
 table {
     border-collapse: collapse;
 }
 
+.table>thead>tr>th {
+    border-bottom: none;
+}
+
 table th, table td {
     padding: 5px;
+}
+
+.error-message {
+    color: red;
+    font-style: italic;
+}
+
+.def-btn-padding {
+    padding: 5px;
+}
+
+.add-new-margin {
+    margin-bottom: 10px
 }
