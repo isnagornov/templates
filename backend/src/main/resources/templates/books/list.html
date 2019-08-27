@@ -10,14 +10,14 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <form th:action="@{/addEntity}" th:method="get">
+    <form th:action="@{/books/add}" th:method="get">
         <input type="hidden" name="_method" value="get"/>
-        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new entity
+        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new book
         </button>
     </form>
 
     <div class="panel panel-success">
-        <div class="panel-heading">Entity List</div>
+        <div class="panel-heading">Books List</div>
         <div class="panel-body">
             <table class="table">
                 <thead>
@@ -28,17 +28,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="entity : ${entities}">
-                    <td th:utext="${entity.id}"></td>
-                    <td th:utext="${entity.name}"></td>
+                <tr th:each="book : ${books}">
+                    <td th:utext="${book.id}"></td>
+                    <td th:utext="${book.name}"></td>
                     <td>
-                        <a th:href="@{'/updateEntity/{id}'(id=${entity.id})}" class="btn btn-warning def-btn-padding"
+                        <a th:href="@{'/books/update/{id}'(id=${book.id})}" class="btn btn-warning def-btn-padding"
                            id="updateButton">
                             Update
                         </a>
                     </td>
                     <td>
-                        <form th:action="@{'/deleteEntity/{id}'(id=${entity.id})}" th:method="delete">
+                        <form th:action="@{'/books/delete/{id}'(id=${book.id})}" th:method="delete">
                             <input type="hidden" name="_method" value="delete"/>
                             <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">Delete
                             </button>

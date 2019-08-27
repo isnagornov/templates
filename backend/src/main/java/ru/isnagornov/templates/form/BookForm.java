@@ -1,12 +1,12 @@
 package ru.isnagornov.templates.form;
 
-public class EntityDto {
+public class BookForm {
 
     private Long id;
 
     private String name;
 
-    public EntityDto() {
+    public BookForm() {
     }
 
     public Long getId() {

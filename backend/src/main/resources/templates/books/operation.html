@@ -12,9 +12,9 @@
 <div class="container">
     <div th:switch="${operation}">
         <div th:case="create">
-            <h3>Create an Entity:</h3>
+            <h3>Add entry:</h3>
 
-            <form class="form-inline" th:action="@{/addEntity}" th:object="${entityDto}" method="POST">
+            <form class="form-inline" th:action="@{/books/add}" th:object="${form}" method="POST">
                 <div class="form-group">
                     <label for="createFormName">Name:</label>
                     <input id="createFormName" type="text" th:field="*{name}"/>
@@ -23,10 +23,10 @@
             </form>
         </div>
         <div th:case="update">
-            <h3>Update an Entity:</h3>
+            <h3>Update entry:</h3>
 
-            <form class="form-inline" th:action="@{'/updateEntity/{id}'(id=${entityDto.id})}"
-                  th:object="${entityDto}" method="POST">
+            <form class="form-inline" th:action="@{'/books/update/{id}'(id=${form.id})}"
+                  th:object="${form}" method="POST">
                 <div class="form-group">
                     <label for="updateFormName">Name:</label>
                     <input id="updateFormName" type="text" th:field="*{name}"/>
