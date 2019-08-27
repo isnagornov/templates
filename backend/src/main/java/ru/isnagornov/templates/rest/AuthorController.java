@@ -7,27 +7,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.isnagornov.templates.form.AuthorForm;
 import ru.isnagornov.templates.form.converter.AuthorDtoConverter;
-import ru.isnagornov.templates.form.converter.BookDtoConverter;
-import ru.isnagornov.templates.form.BookForm;
 import ru.isnagornov.templates.service.AuthorService;
-import ru.isnagornov.templates.service.BookService;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("books")
-public class BookRestController {
-
-    @Autowired
-    private BookService bookService;
+@RequestMapping("authors")
+public class AuthorController {
 
     @Autowired
     private AuthorService authorService;
-
-    @Autowired
-    private BookDtoConverter bookDtoConverter;
 
     @Autowired
     private AuthorDtoConverter authorDtoConverter;
@@ -35,68 +27,67 @@ public class BookRestController {
     @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public String list(Model model) {
 
-        model.addAttribute("books", bookService.getAll().stream().map(
-                bookDtoConverter::getDto).collect(Collectors.toList()));
+        model.addAttribute("authors", authorService.getAll().stream().map(
+                authorDtoConverter::getDto).collect(Collectors.toList()));
 
-        return "books/list";
+        return "authors/list";
     }
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     public String showAddPage(Model model) {
 
-        model.addAttribute("form", new BookForm());
+        model.addAttribute("form", new AuthorForm());
         model.addAttribute("operation", "create");
         model.addAttribute("authors", authorService.getAll().stream().map(
                 authorDtoConverter::getDto).collect(Collectors.toList()));
 
-        return "books/operation";
+        return "authors/operation";
     }
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
-    public String save(Model model, @ModelAttribute("form") @Valid BookForm form) {
+    public String save(Model model, @ModelAttribute("form") @Valid AuthorForm form) {
 
         try {
-            bookService.add(bookDtoConverter.getEntity(form));
+            authorService.add(authorDtoConverter.getEntity(form));
 
-            return "redirect:/books/list";
+            return "redirect:/authors/list";
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
 
-            return "books/operation";
+            return "authors/operation";
         }
     }
 
     @RequestMapping(value = {"/update/{id}"}, method = RequestMethod.GET)
     public String showUpdatePage(Model model, @PathVariable("id") Long id) {
 
-        model.addAttribute("form", bookDtoConverter.getDto(bookService.getById(id)));
+        model.addAttribute("form", authorDtoConverter.getDto(authorService.getById(id)));
         model.addAttribute("operation", "update");
         model.addAttribute("authors", authorService.getAll().stream().map(
                 authorDtoConverter::getDto).collect(Collectors.toList()));
 
-        return "books/operation";
+        return "authors/operation";
     }
 
     @RequestMapping(value = {"/update"}, method = RequestMethod.POST)
-    public String update(Model model, @ModelAttribute("form") @Valid BookForm form) {
+    public String update(Model model, @ModelAttribute("form") @Valid AuthorForm form) {
 
         try {
-            bookService.update(bookDtoConverter.getEntity(form));
+            authorService.update(authorDtoConverter.getEntity(form));
 
-            return "redirect:/books/list";
+            return "redirect:/authors/list";
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
 
-            return "books/operation";
+            return "authors/operation";
         }
     }
 
     @RequestMapping(value = {"/delete/{id}"}, method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id) {
 
-        bookService.delete(id);
+        authorService.delete(id);
 
-        return "redirect:/books/list";
+        return "redirect:/authors/list";
     }
-
 }
