@@ -85,4 +85,15 @@ public class Book {
     public int hashCode() {
         return Objects.hash(id, name, link, rate, author);
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", link='" + link + '\'' +
+                ", rate=" + rate +
+                ", author=" + author +
+                '}';
+    }
 }

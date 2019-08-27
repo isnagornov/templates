@@ -10,9 +10,7 @@ public class BookForm {
 
     private Integer rate;
 
-    private Long authorId;
-
-    private String authorName;
+    private AuthorForm author;
 
     public BookForm() {
     }
@@ -49,19 +47,11 @@ public class BookForm {
         this.rate = rate;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public AuthorForm getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthor(AuthorForm author) {
+        this.author = author;
     }
 }

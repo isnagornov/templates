@@ -25,6 +25,7 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Link</th>
+                    <th>Rate</th>
                     <th>Author</th>
                     <th>Actions</th>
                 </tr>
@@ -34,7 +35,8 @@
                     <td th:utext="${book.id}"></td>
                     <td th:utext="${book.name}"></td>
                     <td th:utext="${book.link}"></td>
-                    <td th:utext="${book.authorName}"></td>
+                    <td th:utext="${book.rate}"></td>
+                    <td th:utext="${book.author.name}"></td>
                     <td>
                         <a th:href="@{'/books/update/{id}'(id=${book.id})}" class="btn btn-warning def-btn-padding"
                            id="updateButton">
@@ -44,7 +46,8 @@
                     <td>
                         <form th:action="@{'/books/delete/{id}'(id=${book.id})}" th:method="delete">
                             <input type="hidden" name="_method" value="delete"/>
-                            <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">Delete
+                            <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">
+                                Delete
                             </button>
                         </form>
                     </td>

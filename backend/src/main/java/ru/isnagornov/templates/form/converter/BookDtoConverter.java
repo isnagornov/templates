@@ -1,39 +1,34 @@
 package ru.isnagornov.templates.form.converter;
 
+import ma.glasnost.orika.CustomMapper;
+import ma.glasnost.orika.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.isnagornov.templates.entity.Author;
 import ru.isnagornov.templates.entity.Book;
 import ru.isnagornov.templates.form.BookForm;
-import ru.isnagornov.templates.service.AuthorService;
 
 @Component
 public class BookDtoConverter extends BaseConverter<Book, BookForm> {
 
     @Autowired
-    private AuthorService authorService;
+    private AuthorDtoConverter authorDtoConverter;
 
     public BookDtoConverter() {
         super(Book.class, BookForm.class);
-    }
 
-    @Override
-    public Book getEntity(BookForm dto) {
-        Book entity = super.getEntity(dto);
+        getClassMapBuilder().customize(new CustomMapper<Book, BookForm>() {
 
-        entity.setAuthor(authorService.getById(dto.getAuthorId()));
+            @Override
+            public void mapAtoB(Book book, BookForm bookForm, MappingContext context) {
+                super.mapAtoB(book, bookForm, context);
+                book.setAuthor(authorDtoConverter.getEntity(bookForm.getAuthor()));
+            }
 
-        return entity;
-    }
-
-    @Override
-    public BookForm getDto(Book entity) {
-        BookForm dto = super.getDto(entity);
-
-        Author author = entity.getAuthor();
-        dto.setAuthorId(author.getId());
-        dto.setAuthorName(author.getName());
-
-        return dto;
+            @Override
+            public void mapBtoA(BookForm bookForm, Book book, MappingContext context) {
+                super.mapBtoA(bookForm, book, context);
+                bookForm.setAuthor(authorDtoConverter.getDto(book.getAuthor()));
+            }
+        }).byDefault().register();
     }
 }
