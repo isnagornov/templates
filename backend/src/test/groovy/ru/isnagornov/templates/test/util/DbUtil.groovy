@@ -46,6 +46,26 @@ class DbUtil {
         keyHolder.key
     }
 
+    Long insertAuthor(Author author) {
+        KeyHolder keyHolder = new GeneratedKeyHolder()
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "insert into author (name, biography) values (?, ?)",
+                        ["name", "biography"] as String[])
+
+                preparedStatement.setString(1, author.name)
+                preparedStatement.setString(2, author.biography)
+
+                preparedStatement
+            }
+        }, keyHolder)
+
+        keyHolder.key
+    }
+
     def <T> T getEntityById(Long id, String tableName, RowMapper<T> mapper) {
         DataAccessUtils.uniqueResult(queryForList("SELECT * FROM ${tableName} WHERE id=${id}", mapper))
     }
