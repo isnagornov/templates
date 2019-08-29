@@ -30,3 +30,7 @@ table th, table td {
 .add-new-margin {
     margin-bottom: 10px
 }
+
+.home-block {
+    height: 50vh;
+}
