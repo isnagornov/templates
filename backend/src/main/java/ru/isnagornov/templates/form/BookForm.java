@@ -8,8 +8,6 @@ public class BookForm {
 
     private String link;
 
-    private Integer rate;
-
     private AuthorForm author;
 
     public BookForm() {
@@ -37,14 +35,6 @@ public class BookForm {
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public Integer getRate() {
-        return rate;
-    }
-
-    public void setRate(Integer rate) {
-        this.rate = rate;
     }
 
     public AuthorForm getAuthor() {

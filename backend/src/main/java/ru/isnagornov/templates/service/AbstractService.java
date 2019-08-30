@@ -5,11 +5,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public abstract class AbstractService<T, E> {
+public abstract class AbstractService<T, E, R extends JpaRepository<E, T>> {
 
-    protected JpaRepository<E, T> repository;
+    protected R repository;
 
-    public AbstractService(JpaRepository<E, T> repository) {
+    public AbstractService(R repository) {
         this.repository = repository;
     }
 

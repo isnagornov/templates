@@ -84,9 +84,15 @@ public class AuthorController {
     }
 
     @RequestMapping(value = {"/delete/{id}"}, method = RequestMethod.DELETE)
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(Model model, @PathVariable("id") Long id) {
 
-        authorService.delete(id);
+        try {
+            authorService.delete(id);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+
+            return list(model);
+        }
 
         return "redirect:/authors/list";
     }

@@ -23,7 +23,6 @@ class BookMapper implements RowMapper<Book> {
         book.id = resultSet.getLong("id")
         book.name = resultSet.getString("name")
         book.link = resultSet.getString("link")
-        book.rate = resultSet.getInt("rate")
         book.author = dbUtil.getEntityById(resultSet.getLong("author_id"), "author",
                 DbUtil.authorRowMapper)
 

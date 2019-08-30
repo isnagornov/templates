@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.KeyHolder
 import org.springframework.stereotype.Component
 import ru.isnagornov.templates.entity.Author
 import ru.isnagornov.templates.entity.Book
+import ru.isnagornov.templates.entity.BookComment
 
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -31,13 +32,12 @@ class DbUtil {
             @Override
             PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                        "insert into book (name, link, rate, author_id) values (?, ?, ?, ?)",
-                        ["name", "link", "rate", "author_id"] as String[])
+                        "insert into book (name, link, author_id) values (?, ?, ?)",
+                        ["name", "link", "author_id"] as String[])
 
                 preparedStatement.setString(1, book.name)
                 preparedStatement.setString(2, book.link)
-                preparedStatement.setInt(3, book.rate)
-                preparedStatement.setLong(4, book.author.id)
+                preparedStatement.setLong(3, book.author.id)
 
                 preparedStatement
             }
@@ -58,6 +58,28 @@ class DbUtil {
 
                 preparedStatement.setString(1, author.name)
                 preparedStatement.setString(2, author.biography)
+
+                preparedStatement
+            }
+        }, keyHolder)
+
+        keyHolder.key
+    }
+
+    Long insertBookComment(BookComment bookComment) {
+        KeyHolder keyHolder = new GeneratedKeyHolder()
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "insert into book_comment (book_comment, rate, user_commented, book_id) values (?, ?, ?, ?)",
+                        ["book_comment", "rate", "user_commented", "book_id"] as String[])
+
+                preparedStatement.setString(1, bookComment.comment)
+                preparedStatement.setInt(2, bookComment.rate)
+                preparedStatement.setString(3, bookComment.user)
+                preparedStatement.setLong(4, bookComment.book.id)
 
                 preparedStatement
             }

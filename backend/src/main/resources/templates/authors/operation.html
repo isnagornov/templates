@@ -8,6 +8,7 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/errorMessage :: errorMessage"/>
 
 <div class="container">
     <h3 th:utext="${operation == 'create'} ? 'Add author:' : 'Update entry:'"></h3>

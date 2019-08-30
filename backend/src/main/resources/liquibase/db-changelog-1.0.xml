@@ -27,8 +27,6 @@
             <column name="author_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="rate" type="integer">
-            </column>
         </createTable>
     </changeSet>
 
@@ -63,7 +61,11 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="comment" type="text">
+            <column name="book_comment" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rate" type="integer"/>
+            <column name="user_commented" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="book_id" type="bigint">

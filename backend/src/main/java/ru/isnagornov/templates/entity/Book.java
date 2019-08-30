@@ -19,9 +19,6 @@ public class Book {
     @Column
     private String link;
 
-    @Column
-    private Integer rate;
-
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
@@ -53,14 +50,6 @@ public class Book {
         this.link = link;
     }
 
-    public Integer getRate() {
-        return rate;
-    }
-
-    public void setRate(Integer rate) {
-        this.rate = rate;
-    }
-
     public Author getAuthor() {
         return author;
     }
@@ -77,13 +66,12 @@ public class Book {
         return id.equals(book.id) &&
                 name.equals(book.name) &&
                 Objects.equals(link, book.link) &&
-                Objects.equals(rate, book.rate) &&
                 author.equals(book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, link, rate, author);
+        return Objects.hash(id, name, link, author);
     }
 
     @Override
@@ -92,7 +80,6 @@ public class Book {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", link='" + link + '\'' +
-                ", rate=" + rate +
                 ", author=" + author +
                 '}';
     }

@@ -1,0 +1,10 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="errorMessage" class="container" th:if="${errorMessage}">
+    <div class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Ошибка!</strong><p th:utext="${errorMessage}"></p>
+    </div>
+</div>
+</body>
+</html>

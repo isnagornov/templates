@@ -8,8 +8,9 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/errorMessage :: errorMessage"/>
 
-<div class="container">
+<div class="container book-rating">
     <form th:action="@{/authors/add}" th:method="get">
         <input type="hidden" name="_method" value="get"/>
         <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new author
@@ -34,18 +35,17 @@
                     <td th:utext="${author.name}"></td>
                     <td th:utext="${author.biography}"></td>
                     <td>
-                        <a th:href="@{'/authors/update/{id}'(id=${author.id})}" class="btn btn-warning def-btn-padding"
-                           id="updateButton">
-                            Update
-                        </a>
-                    </td>
-                    <td>
-                        <form th:action="@{'/authors/delete/{id}'(id=${author.id})}" th:method="delete">
-                            <input type="hidden" name="_method" value="delete"/>
-                            <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">
-                                Delete
-                            </button>
-                        </form>
+                        <div class="btn-group btn-group-justified">
+                            <a th:href="@{'/authors/update/{id}'(id=${author.id})}" class="btn btn-warning"
+                               id="updateButton">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <form th:action="@{'/authors/delete/{id}'(id=${author.id})}" th:method="delete">
+                                <button class="btn btn-danger" type="submit" id="deleteButton">
+                                    <span class="glyphicon glyphicon-floppy-remove"></span>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

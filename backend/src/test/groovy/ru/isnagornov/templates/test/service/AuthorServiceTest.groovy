@@ -23,7 +23,7 @@ class AuthorServiceTest extends Specification {
     @Autowired
     private DbUtil dbUtil
 
-    void test1Insert() {
+    void testInsert() {
         given:
         Author entityToInsert = [name: "TestAuthor1", biography: "!biography!"] as Author
 
@@ -38,7 +38,7 @@ class AuthorServiceTest extends Specification {
         dbUtil.deleteEntityById(tableName, entityToInsert.id)
     }
 
-    void test2Get() {
+    void testGet() {
         given:
         final Long id = 1L
         Author found = dbUtil.getEntityById(id, tableName, DbUtil.authorRowMapper)
@@ -56,24 +56,24 @@ class AuthorServiceTest extends Specification {
         logger.info("{} was gotten from repository by id={}", entity, id)
     }
 
-    void test4Update() {
+    void testUpdate() {
         given:
         final Long id = 1L
-        Author auhtorToUpdate = dbUtil.getEntityById(id, tableName, DbUtil.authorRowMapper)
+        Author toUpdate = dbUtil.getEntityById(id, tableName, DbUtil.authorRowMapper)
 
-        auhtorToUpdate.properties.each {
+        toUpdate.properties.each {
             if (it.value instanceof String) {
-                auhtorToUpdate.metaClass.setAttribute(auhtorToUpdate, it.key, it.value + "Updated!")
+                toUpdate.metaClass.setAttribute(toUpdate, it.key, it.value + "Updated!")
             }
         }
 
         when:
-        authorService.update(auhtorToUpdate)
+        authorService.update(toUpdate)
 
         then:
-        Author authorAfterUpdate = dbUtil.getEntityById(id, tableName, DbUtil.authorRowMapper)
+        Author afterUpdate = dbUtil.getEntityById(id, tableName, DbUtil.authorRowMapper)
 
-        with(authorAfterUpdate) {
+        with(afterUpdate) {
             properties.each {
                 if (it.value instanceof String) {
                     assert (it.value as String).contains("Updated!")
@@ -81,10 +81,10 @@ class AuthorServiceTest extends Specification {
             }
         }
 
-        logger.info("Entity was updated in repository, new value - {}", authorAfterUpdate)
+        logger.info("Entity was updated in repository, new value - {}", afterUpdate)
     }
 
-    void test5Delete() {
+    void testDelete() {
         given:
         final Long idToDelete = dbUtil.insertAuthor([name: "TestAuthorToDelete", biography: "!biography!"] as Author)
 
