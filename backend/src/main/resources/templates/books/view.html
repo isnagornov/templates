@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <title>Add book</title>
@@ -11,19 +11,41 @@
 <div th:replace="fragments/errorMessage :: errorMessage"/>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-4 book-prop">
+            <label for="bookName">Book:</label>
+        </div>
+        <div class="col-md-8 book-prop">
+            <span id="bookName" th:utext="${form.name}"></span>
+        </div>
+        <div class="col-md-4 book-prop">
+            <label for="authorName">Author:</label>
+        </div>
+        <div class="col-md-8 book-prop">
+            <span id="authorName" th:utext="${form.author.name}"></span>
+        </div>
+        <div class="col-md-4 book-prop">
+            <label for="link">Link:</label>
+        </div>
+        <div class="col-md-8 book-prop">
+            <span id="link" th:utext="${form.link}"></span>
+        </div>
+        <div class="col-md-12 book-prop">
+            <label>Comments:</label>
+        </div>
+    </div>
 
-    <h1 id="bookName" th:utext="${form.name}"></h1>
-    <h2 id="authorName" th:utext="${form.author.name}"></h2>
-
-    <div class="panel-group" th:each="comment : ${comments}">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-user"></span>
-                <span th:utext="${comment.user}"></span>
-            </div>
-            <div class="panel-body">
-                <div th:utext="${comment.comment}"></div>
-                <div th:utext="${comment.rate}"></div>
+    <div class="comment-block">
+        <div class="panel-group" th:each="comment : ${comments}">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span th:utext="${comment.user}"></span>
+                </div>
+                <div class="panel-body">
+                    <div th:utext="${comment.comment}"></div>
+                    <div th:utext="${comment.rate}"></div>
+                </div>
             </div>
         </div>
     </div>

@@ -31,14 +31,14 @@ table th, table td {
 }
 
 .comment-block {
-    border: 1px solid #ddd
+    margin-left: 20px;
 }
 
-.comment-block-header {
-    padding: 10px;
-    border-bottom: 1px solid #ddd
+.book-prop {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.comment-block-body {
-    padding: 10px;
+.book-prop label {
+    display: initial;
 }
