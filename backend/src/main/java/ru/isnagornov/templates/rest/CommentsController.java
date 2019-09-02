@@ -3,15 +3,14 @@ package ru.isnagornov.templates.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.isnagornov.templates.form.BookCommentForm;
 import ru.isnagornov.templates.form.converter.BookCommentDtoConverter;
 import ru.isnagornov.templates.form.converter.BookDtoConverter;
 import ru.isnagornov.templates.service.BookCommentService;
 import ru.isnagornov.templates.service.BookService;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,6 +28,15 @@ public class CommentsController {
 
     @Autowired
     private BookCommentDtoConverter bookCommentDtoConverter;
+
+
+    @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
+    public String save(@ModelAttribute("newComment") @Valid BookCommentForm form) {
+
+        bookCommentService.add(bookCommentDtoConverter.getEntity(form));
+
+        return "redirect:/books/view/" + form.getBook().getId();
+    }
 
     @RequestMapping(value = {"/delete/{id}"}, method = RequestMethod.DELETE)
     public String delete(Model model, @RequestParam("bookId") Long bookId, @PathVariable("id") Long id) {

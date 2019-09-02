@@ -42,6 +42,14 @@ table th, table td {
     margin-top: -20px;
 }
 
+.add-comment-btn {
+    padding: 2px;
+}
+
+.add-comment-form {
+    margin-bottom: 20px;
+}
+
 .book-prop {
     margin-top: 10px;
     margin-bottom: 10px;

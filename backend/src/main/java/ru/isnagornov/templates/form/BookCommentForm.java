@@ -12,6 +12,8 @@ public class BookCommentForm {
 
     private Integer rate;
 
+    private BookForm book;
+
     public BookCommentForm() {
     }
 
@@ -47,6 +49,14 @@ public class BookCommentForm {
         this.rate = rate;
     }
 
+    public BookForm getBook() {
+        return book;
+    }
+
+    public void setBook(BookForm book) {
+        this.book = book;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,11 +65,12 @@ public class BookCommentForm {
         return id.equals(that.id) &&
                 comment.equals(that.comment) &&
                 Objects.equals(user, that.user) &&
+                Objects.equals(book, that.book) &&
                 Objects.equals(rate, that.rate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, comment, user, rate);
+        return Objects.hash(id, comment, user, book, rate);
     }
 }

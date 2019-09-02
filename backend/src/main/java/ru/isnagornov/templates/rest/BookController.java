@@ -3,10 +3,7 @@ package ru.isnagornov.templates.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.isnagornov.templates.form.BookCommentForm;
 import ru.isnagornov.templates.form.BookForm;
 import ru.isnagornov.templates.form.converter.AuthorDtoConverter;
@@ -117,6 +114,23 @@ public class BookController {
         bookService.delete(id);
 
         return "redirect:/books/list";
+    }
+
+    @RequestMapping(value = {"/addComment"}, method = RequestMethod.GET)
+    public String showAddCommentForm(Model model, @RequestParam("bookId") Long bookId) {
+
+        BookForm bookForm = new BookForm();
+        bookForm.setId(bookId);
+
+        BookCommentForm bookCommentForm = new BookCommentForm();
+        bookCommentForm.setBook(bookForm);
+
+        model.addAttribute("newComment", bookCommentForm);
+        model.addAttribute("form", bookDtoConverter.getDto(bookService.getById(bookId)));
+        model.addAttribute("comments", bookCommentService.getAllByBook(bookId).stream().map(
+                bookCommentDtoConverter::getDto).collect(Collectors.toList()));
+
+        return "books/view";
     }
 
 }
