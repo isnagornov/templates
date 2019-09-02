@@ -11,6 +11,12 @@
 <div th:replace="fragments/errorMessage :: errorMessage"/>
 
 <div class="container">
+    <form th:action="@{/books/list}" th:method="get">
+        <input type="hidden" name="_method" value="get"/>
+        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Back to list
+        </button>
+    </form>
+
     <div class="row">
         <div class="col-md-4 book-prop">
             <label for="bookName">Book:</label>
@@ -37,14 +43,27 @@
 
     <div class="comment-block">
         <div class="panel-group" th:each="comment : ${comments}">
-            <div class="panel panel-info">
+            <div th:class="${comment.rate < 2} ? 'panel panel-danger' : (${comment.rate >= 2 && comment.rate < 4}
+                ? 'panel panel-info' : 'panel panel-success')">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-user"></span>
                     <span th:utext="${comment.user}"></span>
+                    <form th:action="@{'/comments/delete/{id}?bookId={bookId}'(id=${comment.id},bookId=${form.id})}"
+                          th:method="delete">
+                        <button class="close" type="submit" id="deleteButton">
+                            &times;
+                        </button>
+                    </form>
+
                 </div>
                 <div class="panel-body">
                     <div th:utext="${comment.comment}"></div>
-                    <div th:utext="${comment.rate}"></div>
+                    <div class="comment-stars">
+                        <span th:each="idx:${#numbers.sequence(0, comment.rate - 1)}" class="fa fa-star"
+                              th:style="${comment.rate < 2} ? 'color: #a94442;' : (${comment.rate >= 2 && comment.rate < 4}
+                            ? 'color: #31708f;' : 'color: #3c763d;')"
+                        ></span>
+                    </div>
                 </div>
             </div>
         </div>

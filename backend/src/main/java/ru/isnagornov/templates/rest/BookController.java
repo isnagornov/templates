@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("books")
-public class BookRestController {
+public class BookController {
 
     @Autowired
     private BookService bookService;
