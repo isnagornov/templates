@@ -16,4 +16,8 @@ public class BookCommentService extends AbstractService<Long, BookComment, BookC
     public List<BookComment> getAllByBook(Long bookId) {
         return repository.findByBookId(bookId);
     }
+
+    public long countByBookId(Long bookId) {
+        return repository.countByBookId(bookId);
+    }
 }

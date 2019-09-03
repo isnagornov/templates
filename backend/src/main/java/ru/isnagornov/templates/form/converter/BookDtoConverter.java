@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.isnagornov.templates.entity.Book;
 import ru.isnagornov.templates.form.BookForm;
+import ru.isnagornov.templates.service.BookCommentService;
 
 @Component
 public class BookDtoConverter extends BaseConverter<Book, BookForm> {
 
     @Autowired
-    private AuthorDtoConverter authorDtoConverter;
+    private BookCommentService bookCommentService;
 
     public BookDtoConverter() {
         super(Book.class, BookForm.class);
@@ -21,13 +22,7 @@ public class BookDtoConverter extends BaseConverter<Book, BookForm> {
             @Override
             public void mapAtoB(Book book, BookForm bookForm, MappingContext context) {
                 super.mapAtoB(book, bookForm, context);
-                book.setAuthor(authorDtoConverter.getEntity(bookForm.getAuthor()));
-            }
-
-            @Override
-            public void mapBtoA(BookForm bookForm, Book book, MappingContext context) {
-                super.mapBtoA(bookForm, book, context);
-                bookForm.setAuthor(authorDtoConverter.getDto(book.getAuthor()));
+                bookForm.setCommentsNumber(bookCommentService.countByBookId(book.getId()));
             }
         }).byDefault().register();
     }

@@ -10,6 +10,8 @@ public class BookForm {
 
     private AuthorForm author;
 
+    private Long commentsNumber;
+
     public BookForm() {
     }
 
@@ -43,5 +45,13 @@ public class BookForm {
 
     public void setAuthor(AuthorForm author) {
         this.author = author;
+    }
+
+    public Long getCommentsNumber() {
+        return commentsNumber;
+    }
+
+    public void setCommentsNumber(Long commentsNumber) {
+        this.commentsNumber = commentsNumber;
     }
 }

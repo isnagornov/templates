@@ -1,7 +1,5 @@
 package ru.isnagornov.templates.form;
 
-import java.util.Objects;
-
 public class BookCommentForm {
 
     private Long id;
@@ -55,22 +53,5 @@ public class BookCommentForm {
 
     public void setBook(BookForm book) {
         this.book = book;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookCommentForm that = (BookCommentForm) o;
-        return id.equals(that.id) &&
-                comment.equals(that.comment) &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(book, that.book) &&
-                Objects.equals(rate, that.rate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, comment, user, book, rate);
     }
 }

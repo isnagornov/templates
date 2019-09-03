@@ -119,11 +119,13 @@ public class BookController {
     @RequestMapping(value = {"/addComment"}, method = RequestMethod.GET)
     public String showAddCommentForm(Model model, @RequestParam("bookId") Long bookId) {
 
-        BookForm bookForm = new BookForm();
+        final Integer defaultRate = 5;
+        final BookForm bookForm = new BookForm();
         bookForm.setId(bookId);
 
         BookCommentForm bookCommentForm = new BookCommentForm();
         bookCommentForm.setBook(bookForm);
+        bookCommentForm.setRate(defaultRate);
 
         model.addAttribute("newComment", bookCommentForm);
         model.addAttribute("form", bookDtoConverter.getDto(bookService.getById(bookId)));

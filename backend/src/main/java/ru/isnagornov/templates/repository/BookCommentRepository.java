@@ -10,4 +10,6 @@ import java.util.List;
 public interface BookCommentRepository extends JpaRepository<BookComment, Long> {
 
     List<BookComment> findByBookId(Long bookId);
+
+    long countByBookId(Long bookId);
 }
