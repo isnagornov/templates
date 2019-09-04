@@ -1,8 +1,9 @@
-package ru.isnagornov.templates.service;
+package ru.isnagornov.templates.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.isnagornov.templates.entity.BookComment;
 import ru.isnagornov.templates.repository.BookCommentRepository;
+import ru.isnagornov.templates.service.AbstractService;
 
 import java.util.List;
 

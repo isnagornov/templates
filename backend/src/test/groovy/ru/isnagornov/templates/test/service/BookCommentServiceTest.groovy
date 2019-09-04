@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import ru.isnagornov.templates.Application
 import ru.isnagornov.templates.entity.Book
 import ru.isnagornov.templates.entity.BookComment
-import ru.isnagornov.templates.service.BookCommentService
+import ru.isnagornov.templates.service.impl.BookCommentService
 import ru.isnagornov.templates.test.mappers.BookCommentMapper
 import ru.isnagornov.templates.test.util.DbUtil
 import spock.lang.Specification

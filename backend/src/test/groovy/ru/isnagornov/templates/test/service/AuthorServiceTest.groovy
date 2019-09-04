@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import ru.isnagornov.templates.Application
 import ru.isnagornov.templates.entity.Author
-import ru.isnagornov.templates.service.AuthorService
+import ru.isnagornov.templates.service.impl.AuthorService
 import ru.isnagornov.templates.test.util.DbUtil
 import spock.lang.Specification
 

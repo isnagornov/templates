@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public abstract class AbstractService<T, E, R extends JpaRepository<E, T>> {
+public abstract class AbstractService<ID, E, R extends JpaRepository<E, ID>> implements CrudService<ID, E> {
 
     protected R repository;
 
@@ -14,26 +14,31 @@ public abstract class AbstractService<T, E, R extends JpaRepository<E, T>> {
     }
 
     @Transactional
+    @Override
     public void add(E entity) {
         this.repository.save(entity);
     }
 
     @Transactional(readOnly = true)
-    public E getById(T id) {
+    @Override
+    public E getById(ID id) {
         return this.repository.findById(id).orElse(null);
     }
 
+    @Override
     public List<E> getAll() {
         return this.repository.findAll();
     }
 
     @Transactional
+    @Override
     public void update(E entity) {
         this.repository.save(entity);
     }
 
     @Transactional
-    public void delete(T id) {
+    @Override
+    public void delete(ID id) {
         this.repository.deleteById(id);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.isnagornov.templates.form.BookCommentForm;
 import ru.isnagornov.templates.form.converter.BookCommentDtoConverter;
-import ru.isnagornov.templates.service.BookCommentService;
+import ru.isnagornov.templates.service.impl.BookCommentService;
 
 import javax.validation.Valid;
 
@@ -18,7 +18,6 @@ public class CommentsController {
 
     @Autowired
     private BookCommentDtoConverter bookCommentDtoConverter;
-
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
     public String save(@ModelAttribute("newComment") @Valid BookCommentForm form) {
