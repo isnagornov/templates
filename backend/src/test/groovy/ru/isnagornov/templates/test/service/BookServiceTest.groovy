@@ -1,6 +1,5 @@
 package ru.isnagornov.templates.test.service
 
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -8,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import ru.isnagornov.templates.Application
 import ru.isnagornov.templates.entity.Author
 import ru.isnagornov.templates.entity.Book
-import ru.isnagornov.templates.service.impl.BookCommentService
-import ru.isnagornov.templates.service.impl.BookService
+import ru.isnagornov.templates.service.BookService
 import ru.isnagornov.templates.test.mappers.BookMapper
 import ru.isnagornov.templates.test.util.DbUtil
 import spock.lang.Specification
@@ -26,9 +24,6 @@ class BookServiceTest extends Specification {
 
     @Autowired
     private BookMapper bookMapper
-
-    @Autowired
-    private BookCommentService bookCommentService
 
     @Autowired
     private DbUtil dbUtil

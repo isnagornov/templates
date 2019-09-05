@@ -7,7 +7,8 @@ import ru.isnagornov.templates.entity.Author;
 import ru.isnagornov.templates.form.AuthorForm;
 import ru.isnagornov.templates.form.converter.AuthorDtoConverter;
 import ru.isnagornov.templates.repository.AuthorRepository;
-import ru.isnagornov.templates.service.impl.AuthorService;
+import ru.isnagornov.templates.service.AuthorService;
+import ru.isnagornov.templates.service.impl.AuthorServiceImpl;
 
 @Controller
 @RequestMapping("authors")

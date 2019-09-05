@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.isnagornov.templates.form.converter.BaseConverter;
-import ru.isnagornov.templates.service.AbstractService;
+import ru.isnagornov.templates.service.CrudService;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 public abstract class AbstractController<ID, E, DTO, R extends JpaRepository<E, ID>,
-        S extends AbstractService<ID, E, R>, C extends BaseConverter<E, DTO>> {
+        S extends CrudService<ID, E>, C extends BaseConverter<E, DTO>> {
 
     private S service;
 

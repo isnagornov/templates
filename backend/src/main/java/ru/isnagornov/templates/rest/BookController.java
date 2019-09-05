@@ -14,9 +14,9 @@ import ru.isnagornov.templates.form.converter.AuthorDtoConverter;
 import ru.isnagornov.templates.form.converter.BookCommentDtoConverter;
 import ru.isnagornov.templates.form.converter.BookDtoConverter;
 import ru.isnagornov.templates.repository.BookRepository;
-import ru.isnagornov.templates.service.impl.AuthorService;
-import ru.isnagornov.templates.service.impl.BookCommentService;
-import ru.isnagornov.templates.service.impl.BookService;
+import ru.isnagornov.templates.service.AuthorService;
+import ru.isnagornov.templates.service.BookCommentService;
+import ru.isnagornov.templates.service.BookService;
 
 import java.util.stream.Collectors;
 

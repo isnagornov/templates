@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.isnagornov.templates.entity.Book;
 import ru.isnagornov.templates.form.BookForm;
-import ru.isnagornov.templates.service.impl.BookCommentService;
+import ru.isnagornov.templates.service.BookCommentService;
 
 @Component
 public class BookDtoConverter extends BaseConverter<Book, BookForm> {

@@ -4,13 +4,15 @@ import org.springframework.stereotype.Service;
 import ru.isnagornov.templates.entity.BookComment;
 import ru.isnagornov.templates.repository.BookCommentRepository;
 import ru.isnagornov.templates.service.AbstractService;
+import ru.isnagornov.templates.service.BookCommentService;
 
 import java.util.List;
 
 @Service
-public class BookCommentService extends AbstractService<Long, BookComment, BookCommentRepository> {
+public class BookCommentServiceImpl extends AbstractService<Long, BookComment, BookCommentRepository>
+        implements BookCommentService {
 
-    public BookCommentService(BookCommentRepository repository) {
+    public BookCommentServiceImpl(BookCommentRepository repository) {
         super(repository);
     }
 

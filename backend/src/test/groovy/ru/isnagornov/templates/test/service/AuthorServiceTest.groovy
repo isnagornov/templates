@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import ru.isnagornov.templates.Application
 import ru.isnagornov.templates.entity.Author
-import ru.isnagornov.templates.service.impl.AuthorService
+import ru.isnagornov.templates.service.AuthorService
+import ru.isnagornov.templates.service.impl.AuthorServiceImpl
 import ru.isnagornov.templates.test.util.DbUtil
 import spock.lang.Specification
 
@@ -96,6 +97,22 @@ class AuthorServiceTest extends Specification {
         found == null
 
         logger.info("Entity with id={} was deleted from repository", idToDelete)
+    }
+
+    void testFindByName() {
+        given:
+        final String name = 'AUTHOR'
+
+        when:
+        List<Author> list = authorService.findByNameContainsIgnoreCase(name)
+
+        then:
+        !list.isEmpty()
+        list.each {
+            assert it.name.toLowerCase().contains(name.toLowerCase())
+        }
+
+        logger.info("{} was found in repository by name={}", list, name)
     }
 
 
