@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import ru.isnagornov.templates.entity.Book;
 import ru.isnagornov.templates.form.BookCommentForm;
 import ru.isnagornov.templates.form.BookForm;
+import ru.isnagornov.templates.form.FindAuthorForm;
 import ru.isnagornov.templates.form.converter.AuthorDtoConverter;
 import ru.isnagornov.templates.form.converter.BookCommentDtoConverter;
 import ru.isnagornov.templates.form.converter.BookDtoConverter;
@@ -18,6 +20,7 @@ import ru.isnagornov.templates.service.AuthorService;
 import ru.isnagornov.templates.service.BookCommentService;
 import ru.isnagornov.templates.service.BookService;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,6 +43,25 @@ public class BookController extends AbstractController<Long, Book, BookForm, Boo
         super(service, converter, BookForm.class);
     }
 
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
+    public String list(Model model) {
+
+        model.addAttribute("findAuthorForm", new FindAuthorForm());
+
+        return "books/list";
+    }
+
+    @RequestMapping(value = {"/byAuthor"}, method = RequestMethod.POST)
+    public ModelAndView list(@RequestParam("selectedAuthorId") Long authorId) {
+
+        ModelAndView modelAndView = new ModelAndView("books/list::booksList");
+
+        modelAndView.addObject("books", getService().findByAuthor(authorId).stream().map(
+                getConverter()::getDto).collect(Collectors.toList()));
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
     @Override
     public String showAddPage(Model model) {
@@ -48,6 +70,17 @@ public class BookController extends AbstractController<Long, Book, BookForm, Boo
         model.addAttribute("operation", "create");
         model.addAttribute("authors", authorService.getAll().stream().map(
                 authorDtoConverter::getDto).collect(Collectors.toList()));
+
+        return "books/operation";
+    }
+
+    @RequestMapping(value = {"/addByAuthor"}, method = RequestMethod.GET)
+    public String addByAuthor(Model model, @RequestParam("authorId") Long authorId) {
+
+        model.addAttribute("form", new BookForm());
+        model.addAttribute("operation", "create");
+        model.addAttribute("authors", Collections.singletonList(authorDtoConverter.getDto(
+                authorService.getById(authorId))));
 
         return "books/operation";
     }

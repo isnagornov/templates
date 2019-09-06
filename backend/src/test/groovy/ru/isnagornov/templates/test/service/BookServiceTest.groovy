@@ -108,5 +108,21 @@ class BookServiceTest extends Specification {
         logger.info("Entity with id={} was deleted from repository", idToDelete)
     }
 
+    void testFindByAuthor() {
+        given:
+        final Long authorId = 1L
+
+        when:
+        List<Book> list = bookService.findByAuthor(authorId)
+
+        then:
+        !list.isEmpty()
+        list.each {
+            assert it.author.id == authorId
+        }
+
+        logger.info("{} was found in repository by authorId={}", list, authorId)
+    }
+
 
 }

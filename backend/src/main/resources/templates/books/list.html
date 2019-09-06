@@ -11,54 +11,84 @@
 <div th:replace="fragments/errorMessage :: errorMessage"/>
 
 <div class="container book-rating">
-    <form th:action="@{/books/add}" th:method="get">
-        <input type="hidden" name="_method" value="get"/>
-        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new book
+    <form class="form-inline searchAuthorForm button-margin">
+        <div class="form-group">
+            <label for="authorName">Name:</label>
+            <input id="authorName" class="form-control" type="text" required/>
+        </div>
+        <button class="btn btn-success" id="searchBtn">
+            Find author by name
         </button>
     </form>
 
-    <div class="panel panel-success">
-        <div class="panel-heading">Books List</div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Link</th>
-                    <th>Author</th>
-                    <th>Comments</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="book : ${books}">
-                    <td th:utext="${book.name}"></td>
-                    <td th:utext="${book.link}"></td>
-                    <td th:utext="${book.author.name}"></td>
-                    <td th:utext="${book.commentsNumber}"></td>
-                    <td>
-                        <div class="btn-group btn-group-justified">
-                            <a th:href="@{'/books/view/{id}'(id=${book.id})}" class="btn btn-default"
-                               id="viewButton">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </a>
-                            <a th:href="@{'/books/update/{id}'(id=${book.id})}" class="btn btn-warning"
-                               id="updateButton">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <form th:action="@{'/books/delete/{id}'(id=${book.id})}" th:method="delete">
-                                <button class="btn btn-danger" type="submit" id="deleteButton">
-                                    <span class="glyphicon glyphicon-floppy-remove"></span>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <form class="form-inline foundAuthors button-margin" th:fragment="foundAuthors" hidden>
+        <div class="form-group" th:object="${findAuthorForm}">
+            <label for="authorList">Author:</label>
+            <select class="form-control" id="authorList" th:field="*{selectedAuthorId}">
+                <option th:each="a : *{foundAuthors}" th:text="${a.name}" th:value="${a.id}">
+                </option>
+            </select>
+        </div>
+        <button class="btn btn-success" id="showBtn">
+            Show books by author
+        </button>
+    </form>
+
+    <div id="bookBlock" hidden>
+        <form id="addBookByAuthorForm">
+            <input type="hidden" name="_method" value="get"/>
+            <button class="btn btn-success button-margin" type="submit" id="submitButton">
+                Add new book
+            </button>
+        </form>
+
+        <div class="bookList">
+            <div class="panel panel-success" th:fragment="booksList">
+                <div class="panel-heading">Books List</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Link</th>
+                            <th>Author</th>
+                            <th>Comments</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="book : ${books}">
+                            <td th:utext="${book.name}"></td>
+                            <td th:utext="${book.link}"></td>
+                            <td th:utext="${book.author.name}"></td>
+                            <td th:utext="${book.commentsNumber}"></td>
+                            <td>
+                                <div class="btn-group btn-group-justified">
+                                    <a th:href="@{'/books/view/{id}'(id=${book.id})}" class="btn btn-default"
+                                       id="viewButton">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                    <a th:href="@{'/books/update/{id}'(id=${book.id})}" class="btn btn-warning"
+                                       id="updateButton">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                    <form th:action="@{'/books/delete/{id}'(id=${book.id})}" th:method="delete">
+                                        <button class="btn btn-danger" type="submit" id="deleteButton">
+                                            <span class="glyphicon glyphicon-floppy-remove"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" th:src="@{/js/books/list/booksList.js}"></script>
 
 </body>
 </html>
