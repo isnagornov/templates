@@ -1,3 +1,5 @@
 rootProject.name='templates'
 
 include 'thymeleaf-spring-boot:backend'
+include 'jaxrs-jpa-angular:backend'
+include 'jaxrs-jpa-angular:frontend'

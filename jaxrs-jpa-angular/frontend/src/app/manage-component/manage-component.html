@@ -1,0 +1,47 @@
+<h1>Managing list of entities</h1>
+
+<form class="form-inline">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="currentEntity.name"
+           [ngModelOptions]="{standalone: true}" required>
+  </div>
+  <button class="btn btn-primary" (click)="add()" [disabled]="!currentEntity.name" *ngIf="!updateMode">Add new entry
+  </button>
+  <button class="btn btn-primary" (click)="update()" [disabled]="!currentEntity.name" *ngIf="updateMode">Save changes
+  </button>
+</form>
+
+<div class="panel-group" style="margin-top: 10px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">List</div>
+    <div class="panel-body">
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let entity of entities">
+          <td>{{entity.id}}</td>
+          <td>{{entity.name}}</td>
+          <td>
+            <button class="btn btn-default" (click)="select(entity)" style="padding: 5px;">Update</button>
+            <button class="btn btn-danger" (click)="delete(entity.id)" style="padding: 5px;">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
