@@ -27,9 +27,9 @@ dependencies {
 }
 
 war {
-    dependsOn ":jaxrs-jpa-angular:frontend:build"
-    from("../frontend/dist")
-    archiveName = "serviceApi.war"
+    dependsOn ":common-angular-frontend:build"
+    from('../../common-angular-frontend/dist/')
+    archiveFileName = "serviceApi.war"
 }
 
 task wrapper(type: Wrapper) {

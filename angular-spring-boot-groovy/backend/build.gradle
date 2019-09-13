@@ -48,8 +48,8 @@ dependencies {
 }
 
 bootJar {
-    dependsOn ":angular-spring-boot-groovy:frontend:build"
-    from('../frontend/dist/') {
+    dependsOn ":common-angular-frontend:build"
+    from('../../common-angular-frontend/dist/') {
         into 'static'
     }
 }
