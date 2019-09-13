@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.isnagornov.ru/templates/ws/dto/entity"
+           targetNamespace="http://www.isnagornov.ru/templates/ws/dto/entity" elementFormDefault="qualified">
+
+    <xs:element name="getEntityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="insertEntityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entity" type="tns:entity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="insertEntityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entity" type="tns:entity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getEntityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entity" type="tns:entity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteEntityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteEntityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllEntityRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getAllEntityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entities" type="tns:entity" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="entity">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
