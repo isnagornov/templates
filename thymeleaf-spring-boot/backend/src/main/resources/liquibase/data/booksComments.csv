@@ -1,6 +1,0 @@
-id,book_comment,book_id,rate,user_commented
-1,comment1,1,5,user1
-2,comment2,2,5,user1
-3,comment3,1,4,user2
-4,comment4,2,4,user2
-5,comment5,3,3,user3

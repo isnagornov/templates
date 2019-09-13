@@ -12,69 +12,17 @@
     <changeSet id="changeSet-1" author="nagornov">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="book"/>
+                <tableExists tableName="entity"/>
             </not>
         </preConditions>
-        <createTable tableName="book">
+        <createTable tableName="entity">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="link" type="text">
-            </column>
-            <column name="author_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="changeSet-2" author="nagornov">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="author"/>
-            </not>
-        </preConditions>
-        <createTable tableName="author">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="biography" type="text">
-            </column>
-        </createTable>
-        <addForeignKeyConstraint baseTableName="book" baseColumnNames="author_id" constraintName="book_author_fk"
-                                 referencedTableName="author"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-    <changeSet id="changeSet-3" author="nagornov">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="book_comment"/>
-            </not>
-        </preConditions>
-        <createTable tableName="book_comment">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="book_comment" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="rate" type="integer"/>
-            <column name="user_commented" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="book_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addForeignKeyConstraint baseTableName="book_comment" baseColumnNames="book_id" constraintName="book_comment_book_fk"
-                                 referencedTableName="book"
-                                 referencedColumnNames="id"/>
     </changeSet>
 
 </databaseChangeLog>

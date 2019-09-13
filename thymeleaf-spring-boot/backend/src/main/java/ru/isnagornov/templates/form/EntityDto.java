@@ -1,14 +1,12 @@
 package ru.isnagornov.templates.form;
 
-public class AuthorForm {
+public class EntityDto {
 
     private Long id;
 
     private String name;
 
-    private String biography;
-
-    public AuthorForm() {
+    public EntityDto() {
     }
 
     public Long getId() {
@@ -25,13 +23,5 @@ public class AuthorForm {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
     }
 }

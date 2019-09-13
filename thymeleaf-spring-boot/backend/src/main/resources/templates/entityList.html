@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Entity List</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+    <form th:action="@{/addEntity}" th:method="get">
+        <input type="hidden" name="_method" value="get"/>
+        <button class="btn btn-success add-new-margin" type="submit" id="submitButton">Add new entity
+        </button>
+    </form>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Entity List</div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entity : ${entities}">
+                    <td th:utext="${entity.id}"></td>
+                    <td th:utext="${entity.name}"></td>
+                    <td>
+                        <a th:href="@{'/updateEntity/{id}'(id=${entity.id})}" class="btn btn-warning def-btn-padding"
+                           id="updateButton">
+                            Update
+                        </a>
+                    </td>
+                    <td>
+                        <form th:action="@{'/deleteEntity/{id}'(id=${entity.id})}" th:method="delete">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button class="btn btn-danger def-btn-padding" type="submit" id="deleteButton">Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

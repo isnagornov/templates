@@ -10,20 +10,12 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <div class="row">
+    <h3>Home Page</h3>
 
-        <a href="/authors/add" class="col-md-6 home-block thumbnail">
-            <div class="caption">
-                <span class="glyphicon glyphicon-user"></span> Add author
-            </div>
-        </a>
-        <a href="/books/add" class="col-md-6 home-block thumbnail">
-            <div class="caption">
-                <span class="glyphicon glyphicon-book"></span> Add book
-            </div>
-        </a>
-
-    </div>
+    <ul>
+        <li class="active"><a th:href="@{/entityList}">Entity List</a></li>
+        <li><a th:href="@{/addEntity}">Create new Entity</a></li>
+    </ul>
 
 </div>
 
