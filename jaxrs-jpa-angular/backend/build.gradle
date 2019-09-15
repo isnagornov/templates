@@ -29,9 +29,5 @@ dependencies {
 war {
     dependsOn ":common-angular-frontend:build"
     from('../../common-angular-frontend/dist/')
-    archiveFileName = "serviceApi.war"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
+    archiveName = "serviceApi.war"
 }

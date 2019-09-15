@@ -1,4 +1,4 @@
-Angular-SpringBoot-MyBatis-Liquibase-Template
+Angular-SpringBoot-Groovy-MyBatis-Liquibase-Template
 
 Stack:
 * Angular 5

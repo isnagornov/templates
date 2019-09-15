@@ -9,7 +9,7 @@ Stack:
 
 # Project build:
 
-`cd [projectPath]/frontend`
+`cd [projectPath]/common-angular-frontend`
 
 `npm install`
 

@@ -41,12 +41,8 @@ dependencies {
     runtimeOnly 'org.liquibase:liquibase-core'
     runtimeOnly 'org.postgresql:postgresql:9.4-1202-jdbc4'
     runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'com.oracle:ojdbc6:12.1.0.1'
+//    runtimeOnly 'com.oracle:ojdbc6:12.1.0.1'
     implementation 'commons-dbcp:commons-dbcp:1.4'
     implementation 'org.webjars:bootstrap:3.3.7'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
 }
