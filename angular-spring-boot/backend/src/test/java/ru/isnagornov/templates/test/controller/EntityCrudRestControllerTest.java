@@ -41,9 +41,7 @@ public class EntityCrudRestControllerTest {
 
     @Test
     public void testAddSuccess() throws Exception {
-        Entity entity = Entity.builder()
-                .id(1L).name("entity")
-                .build();
+        Entity entity = new Entity(1L, "entity");
 
         mockMvc.perform(post("/entity/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -57,9 +55,7 @@ public class EntityCrudRestControllerTest {
 
     @Test
     public void testUpdateSuccess() throws Exception {
-        Entity entity = Entity.builder()
-                .id(1L).name("entityUpdated!")
-                .build();
+        Entity entity = new Entity(1L, "entityUpdated!");
 
         mockMvc.perform(put("/entity/update")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -88,7 +84,7 @@ public class EntityCrudRestControllerTest {
     public void testGetByIdSuccess() throws Exception {
         final Long id = 1L;
 
-        Entity entity = Entity.builder().id(id).name("entity1").build();
+        Entity entity = new Entity(id, "entity1");
 
         when(service.getById(id)).thenReturn(entity);
 
@@ -106,8 +102,8 @@ public class EntityCrudRestControllerTest {
     @Test
     public void testGetAllSuccess() throws Exception {
         List<Entity> list = Arrays.asList(
-                Entity.builder().id(1L).name("entity1").build(),
-                Entity.builder().id(2L).name("entity2").build()
+                new Entity(1L, "entity1"),
+                new Entity(2L, "entity2")
         );
 
         when(service.getAll()).thenReturn(list);

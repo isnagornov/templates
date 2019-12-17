@@ -1,5 +1,6 @@
 package ru.isnagornov.templates.test.service;
 
+import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,22 +8,30 @@ import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.isnagornov.templates.Application;
+import org.testcontainers.containers.PostgreSQLContainer;
 import ru.isnagornov.templates.entity.Entity;
 import ru.isnagornov.templates.service.EntityService;
+import ru.isnagornov.templates.test.service.config.TestDbConfig;
+import ru.isnagornov.templates.test.util.TestPostgresqlContainer;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ContextConfiguration(classes = {TestDbConfig.class})
 @RunWith(SpringRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EntityServiceTest {
+
+    @ClassRule
+    public static final PostgreSQLContainer postgreSQLContainer = TestPostgresqlContainer.getInstance()
+            .withDatabaseName("testDB")
+            .withUsername("testUser")
+            .withPassword("testPassword");
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,10 +46,10 @@ public class EntityServiceTest {
     @Test
     public void test1Insert() {
         final Long id = 1L;
-        Entity entity = Entity.builder().name("TestEntity").build();
+        Entity entity = new Entity(null, "TestEntity");
 
         entityService.add(entity);
-        assertTrue(id.equals(entity.getId()));
+        assertEquals(id, entity.getId());
 
         logger.info("{} added to repository", entity);
 
