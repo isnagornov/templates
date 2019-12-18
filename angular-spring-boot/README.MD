@@ -23,7 +23,7 @@ Stack:
 
 `execute in terminal command *java -jar [path to result jar]*`
 
-`then open link in browser http://localhost:8082/#/manage`
+`then open link in browser http://localhost:8123/#/manage`
 
 # Using with docker container
 
