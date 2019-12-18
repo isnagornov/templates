@@ -33,3 +33,9 @@ Stack:
 * execute command `docker run -p 8123:8123 -t isnagornov/angular-spring-boot .`, app should run at localhost:8123
 * execute command `docker ps -a` to check container health
 * execute command `docker stop [CONTAINER_ID]` to stop container
+
+# Using with docker-compose
+
+* `build project via gradle`
+* `cd [projectPath]/backend`
+* execute command `docker-compose up --build`
