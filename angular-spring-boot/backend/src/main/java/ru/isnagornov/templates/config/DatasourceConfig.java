@@ -15,25 +15,19 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan("ru.isnagornov.templates.mapper")
-@PropertySource("classpath:db.properties")
 public class DatasourceConfig {
 
-    @Value("${db.driver-class-name}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
-    @Value("${db.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${db.username}")
+    @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${db.password}")
+    @Value("${spring.datasource.password}")
     private String password;
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 
     @Bean
     public DataSource getDataSource() {
