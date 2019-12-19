@@ -21,9 +21,9 @@ services:
     container_name: angular-spring-boot-container
     restart: always
     environment:
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - spring_datasource_url=${spring_datasource_url}
+      - spring_datasource_username=${POSTGRES_USER}
+      - spring_datasource_password=${POSTGRES_PASSWORD}
     build: .
     volumes:
       - .:/tmp
