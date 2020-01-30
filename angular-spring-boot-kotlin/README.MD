@@ -3,7 +3,7 @@ Angular-SpringBoot-Groovy-MyBatis-Liquibase-Template
 Stack:
 * Angular 5
 * Spring Boot
-* Groovy
+* Kotlin
 * MyBatis
 * Liquibase
 * Gradle
@@ -24,4 +24,4 @@ Stack:
 
 `execute in terminal command *java -jar [path to result jar]*`
 
-`then open link in browser http://localhost:8082/#/manage`
+`then open link in browser http://localhost:8080/#/manage`
