@@ -15,13 +15,11 @@ abstract class ControllerTestsHelper {
         val JSON_MAPPER = ObjectMapper()
 
         fun buildMockMvc(controller: Any): MockMvc {
-            return MockMvcBuilders.standaloneSetup(controller).setViewResolvers(ViewRes()).build()
+            return MockMvcBuilders.standaloneSetup(controller).setViewResolvers(object: ViewResolver {
+                override fun resolveViewName(p0: String, p1: Locale): View? {
+                    return MappingJackson2JsonView()
+                }
+            }).build()
         }
-    }
-}
-
-class ViewRes : ViewResolver {
-    override fun resolveViewName(p0: String, p1: Locale): View? {
-        return MappingJackson2JsonView()
     }
 }
